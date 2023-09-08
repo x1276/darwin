@@ -1,0 +1,72 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darwin</title>
+    <!--<link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="style.css">-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Darwin</h1>
+        <nav>
+            <ul>
+                <li><a href="/" class="logo"><img src="static/assets/logo.png" width="20px" height="20px" /></a></li>
+                <li><a href="#">Games</a></li>
+                <li><a href="#">Promotions</a></li>
+                <li>Balance<!--<a href="#">Balance: <p>{{ balance }}</p></a>--></li>
+                <li><a href="#">Deposit</a></li>
+                <li><a href="#">Profile</a></li>  
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="hero" align="center">
+        <div align="center">
+            <h2>Try Your Luck and Win Big!</h2>
+            <p>Explore a world of exciting casino games and fantastic prizes.</p>
+            <a href="/register/" class="btn">Get Started</a>
+            <p>Already have an account? Click <a href="/login/">here</a> to log in.</p>
+        </div>
+    </section>
+    
+    <section class="games">
+        <h2>Popular Games</h2>
+        <a href="minesweeper.html"><div class="game" id="minesweeper">
+            <h3>Minesweeper</h3>
+            <p>Mine to find a multiplier!</p>
+        </div></a>
+        <a href="crash.html"><div class="game" id="crash">
+            <h3>Crash</h3>
+            <p>Exit before the multiplier crashes</p>
+        </div></a>
+        <a href="blackjack.html"><div class="game" id="blackjack">
+            <h3>Blackjack</h3>
+            <p>Beat the dealer and win big!</p>
+        </div></a>
+    </section>
+    
+    <section class="promotions">
+        <h2 id="lp" align="center">Latest Promotions</h2>
+        <br/>
+        <div class="promotion">
+            <img src="promo1.jpg" alt="Promotion 1">
+            <h3>Double Your Deposit!</h3>
+            <p>Deposit today and get a 100% bonus.</p>
+        </div>
+        <div class="promotion">
+            <img src="promo2.jpg" alt="Promotion 2">
+            <h3>Free Spins Friday</h3>
+            <p>Get free spins every Friday.</p>
+        </div>
+    </section>
+    
+    <footer class="down">
+        <p>&copy; 2023 omnibet. All rights reserved.</p>
+    </footer>
+</body>
+</html>
