@@ -1,13 +1,29 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask_session import Session
 from db import dbtool
 import os
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY')
 
+# Configure Flask-Session to use server-side sessions (file-based in this example)
+app.config["SESSION_TYPE"] = "filesystem"
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_KEY_PREFIX"] = "casino_"  # Prefix for session keys (optional)
+
+# Initialize Flask-Session
+Session(app)
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # Check if the user is logged in (you can use your own logic here)
+    username = session.get('username') is not None
+    print(session.get('username'))
+    # Access user-specific data from the session (if available)
+    user_balance = session.get('balance', 0)
+    
+    return render_template('index.html', user_balance=user_balance, username=username)
+
 
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
@@ -44,8 +60,11 @@ def login():
         try:
             if dbtool.user_exists(username):
                 if dbtool.check_password(username, password):
+                    # Store user-specific data in the session (e.g., balance)
+                    session['balance'] = dbtool.get_balance(username)
+                    session['username'] = username
                     # Redirect to the main page after successful login
-                    return redirect(url_for('index', balance=dbtool.get_balance(username)))
+                    return redirect(url_for('index'))
                 else:
                     error_message = "Wrong password! Try again!"
                     return render_template('login/index.html', error_message=error_message)
@@ -59,7 +78,6 @@ def login():
             return render_template('login/index.html', error_message=error_message)
 
     return render_template("login/index.html")
-
 
 if __name__ == '__main__':
     app.run(debug=True)
